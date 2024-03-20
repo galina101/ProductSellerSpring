@@ -6,9 +6,11 @@ import org.example.Exceptions.ProductNotFoundException;
 import org.example.Service.ProductService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -49,12 +51,32 @@ public class ProductController {
     return new ResponseEntity<>(product, HttpStatus.CREATED);
   }
 
-  @GetMapping(value = "/product", params = "id")
-  public ResponseEntity<Product> getProductById(@RequestParam long id) {
+  @GetMapping(value = "/product/{id}")
+  public ResponseEntity<Product> getProductById(@PathVariable long id) {
 
     try {
       Product p = productService.getById(id);
       return new ResponseEntity<>(p, HttpStatus.OK);
+    } catch (ProductNotFoundException e) {
+      return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+    }
+  }
+
+  @DeleteMapping(value = "/product/{id}")
+  public ResponseEntity<Product> deleteProductById(@PathVariable long id) {
+    try {
+      productService.deleteProductById(id);
+      return new ResponseEntity<>(null, HttpStatus.OK);
+    } catch (ProductNotFoundException e) {
+      return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+    }
+  }
+
+  @PutMapping(value = "/product/{id}")
+  public ResponseEntity<Product> updateProductById(@PathVariable long id, @RequestBody Product p) {
+    try {
+      Product product = productService.updateProductById(id, p);
+      return new ResponseEntity<>(product, HttpStatus.OK);
     } catch (ProductNotFoundException e) {
       return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
     }
