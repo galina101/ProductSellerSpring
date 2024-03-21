@@ -10,9 +10,13 @@ import org.example.Repository.ProductRepository;
 import org.example.Repository.SellerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Service
 public class ProductService {
+
+  private static final Logger logger = LoggerFactory.getLogger(ProductService.class);
 
   ProductRepository productRepository;
   SellerRepository sellerRepository;
@@ -63,8 +67,8 @@ public class ProductService {
     return productRepository.findByName2(name);
   }
 
-  public Product getById(long id) throws ProductNotFoundException {
-    Optional<Product> p = productRepository.findById(id);
+  public Product getById(long productId) throws ProductNotFoundException {
+    Optional<Product> p = productRepository.findById(productId);
     if (p.isEmpty()) {
       throw new ProductNotFoundException("no such product... ");
     } else {
@@ -82,7 +86,7 @@ public class ProductService {
   }
 
   //UNFINISHED
-  public Product updateProductById(long id, Product p)
+  public Product updateProductById(long sellerId, long productId, Product p)
       throws ProductNotFoundException {
 
     //Check if product name is not null
@@ -103,21 +107,23 @@ public class ProductService {
 
 
     //check if seller exists
-    Optional<Seller> optional = sellerRepository.findById(id);
+    Optional<Seller> optional = sellerRepository.findById(sellerId);
     Seller s;
     if (optional.isEmpty()) {
-      throw new ProductNotFoundException("No such seller...");
+      throw new ProductNotFoundException("No such seller.");
     } else {
       s = optional.get();
     }
-    //Check if product exists
-    Optional<Product> product = productRepository.findById(id);
-    if (product.isEmpty()) {
-      throw new ProductNotFoundException("No such product... ");
-    } else {
-      p.setId(id);
-      productRepository.save(p);
-    }
+
+    //Update the product
+
+    p.setName(p.getName());
+    p.setPrice(p.getPrice());
+    p.setSeller(s);
+
+    logger.warn ("About to update product to ", p);
+
+    productRepository.save(p);
     return p;
   }
 }

@@ -1,9 +1,14 @@
 package org.example.Controller;
 
 import java.util.List;
+import java.util.Optional;
 import org.example.Entity.Product;
+import org.example.Entity.Seller;
 import org.example.Exceptions.ProductNotFoundException;
+import org.example.Exceptions.SellerFormatException;
+import org.example.Repository.SellerRepository;
 import org.example.Service.ProductService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -19,6 +24,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class ProductController {
 
   ProductService productService;
+
+  @Autowired
+  SellerRepository sellerRepository;
 
   public ProductController(ProductService productService) {
     this.productService = productService;
@@ -44,41 +52,57 @@ public class ProductController {
     return new ResponseEntity<>(products, HttpStatus.OK);
   }
 
-  @PostMapping("/seller/{id}/product")
-  public ResponseEntity<Product> addProduct(@PathVariable long id,
+  @PostMapping("/seller/{sellerId}/product")
+  public ResponseEntity<Product> addProduct(@PathVariable long sellerId,
       @RequestBody Product p) throws Exception {
-    Product product = productService.saveProduct(id, p);
-    return new ResponseEntity<>(product, HttpStatus.CREATED);
+      // Fetch the Seller from the database using the sellerId
+      Optional<Seller> optionalSeller = sellerRepository.findById(sellerId);
+      if (optionalSeller.isPresent()) {
+        Seller seller = optionalSeller.get();
+        // Set the seller to the product
+        p.setSeller(seller);
+        Product product = productService.saveProduct(sellerId, p);
+        return new ResponseEntity<>(product, HttpStatus.CREATED);
+      } else {
+        throw new SellerFormatException("Seller not found");
+      }
   }
 
-  @GetMapping(value = "/product/{id}")
-  public ResponseEntity<Product> getProductById(@PathVariable long id) {
+  @GetMapping(value = "/product/{productId}")
+  public ResponseEntity<Product> getProductById(@PathVariable long productId) {
 
     try {
-      Product p = productService.getById(id);
+      Product p = productService.getById(productId);
       return new ResponseEntity<>(p, HttpStatus.OK);
     } catch (ProductNotFoundException e) {
       return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
     }
   }
 
-  @DeleteMapping(value = "/product/{id}")
-  public ResponseEntity<Product> deleteProductById(@PathVariable long id) {
+  @DeleteMapping(value = "/product/{productId}")
+  public ResponseEntity<Product> deleteProductById(@PathVariable long productId) {
     try {
-      productService.deleteProductById(id);
+      productService.deleteProductById(productId);
       return new ResponseEntity<>(null, HttpStatus.OK);
     } catch (ProductNotFoundException e) {
       return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
     }
   }
 
-  @PutMapping(value = "/product/{id}")
-  public ResponseEntity<Product> updateProductById(@PathVariable long id, @RequestBody Product p) {
-    try {
-      Product product = productService.updateProductById(id, p);
-      return new ResponseEntity<>(product, HttpStatus.OK);
-    } catch (ProductNotFoundException e) {
-      return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+  @PutMapping(value = "seller/{sellerId}/product/{productId}")
+  public ResponseEntity<Product> updateProductById(@PathVariable long sellerId,
+      @PathVariable long productId,
+      @RequestBody Product p) throws Exception {
+
+    Optional<Seller> optionalSeller = sellerRepository.findById(sellerId);
+    if (optionalSeller.isPresent()) {
+      Seller seller = optionalSeller.get();
+      // Set the seller to the product
+      p.setSeller(seller);
+      Product product = productService.updateProductById(sellerId, productId, p);
+      return new ResponseEntity<>(product, HttpStatus.CREATED);
+    } else {
+      throw new SellerFormatException("Seller not found");
     }
   }
 

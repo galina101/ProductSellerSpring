@@ -4,18 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6814edd3-e41b-4a07-81e2-5c6a50ab2f5d" name="Changes" comment="Delete, get, post are working. Update needs more work">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/Exceptions/SellerFormatException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/Handler/ProductExceptionHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/Handler/SellerExceptionHandler.java" afterDir="false" />
+    <list default="true" id="6814edd3-e41b-4a07-81e2-5c6a50ab2f5d" name="Changes" comment="Update not working yet. Added exceptions and exception handling">
+      <change afterPath="$PROJECT_DIR$/src/test/java/ProductControllerTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Controller/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Controller/ProductController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Controller/SellerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Controller/SellerController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Entity/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Entity/Product.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Entity/Seller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Entity/Seller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Repository/SellerRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Repository/SellerRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Service/ProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Service/ProductService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Service/SellerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Service/SellerService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -74,7 +71,10 @@
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "onboarding.tips.debug.path": "C:/Users/A178393/IdeaProjects/ProductSellerSpring/src/main/java/org/example/Main.java",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "reference.settings.project.maven.repository.indices",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -122,7 +122,7 @@
       <option name="presentableId" value="Default" />
       <updated>1710949913966</updated>
       <workItem from="1710949915057" duration="460000" />
-      <workItem from="1710950477293" duration="20172000" />
+      <workItem from="1710950477293" duration="28873000" />
     </task>
     <task id="LOCAL-00001" summary="Delete, get, post are working. Update needs more work">
       <option name="closed" value="true" />
@@ -132,7 +132,15 @@
       <option name="project" value="LOCAL" />
       <updated>1710963310475</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Update not working yet. Added exceptions and exception handling">
+      <option name="closed" value="true" />
+      <created>1711033689981</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1711033689981</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -140,15 +148,45 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Delete, get, post are working. Update needs more work" />
-    <option name="LAST_COMMIT_MESSAGE" value="Delete, get, post are working. Update needs more work" />
+    <MESSAGE value="Update not working yet. Added exceptions and exception handling" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update not working yet. Added exceptions and exception handling" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/org/example/Main.java</url>
-          <line>12</line>
-          <option name="timeStamp" value="1" />
+          <url>file://$PROJECT_DIR$/src/main/java/org/example/Service/ProductService.java</url>
+          <line>89</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/org/example/Service/ProductService.java</url>
+          <line>100</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/org/example/Service/ProductService.java</url>
+          <line>39</line>
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/org/example/Controller/ProductController.java</url>
+          <line>56</line>
+          <option name="timeStamp" value="9" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/org/example/Service/ProductService.java</url>
+          <line>95</line>
+          <option name="timeStamp" value="11" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/org/example/Controller/ProductController.java</url>
+          <line>55</line>
+          <properties class="org.example.Controller.ProductController" method="addProduct">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="10" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

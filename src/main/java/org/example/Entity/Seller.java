@@ -1,5 +1,7 @@
 package org.example.Entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,6 +21,7 @@ import lombok.ToString;
 @Data
 @EqualsAndHashCode
 @ToString
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "products"})
 public class Seller {
 
   @Id
@@ -27,9 +30,10 @@ public class Seller {
   public String name;
 
   @OneToMany(mappedBy = "seller")
+  @JsonBackReference
   //Need to add, remove mapped by
   // @OneToMany
-  // @JoinColumn(name="seller_id")
+   //@JoinColumn(name="seller_id")
 
   //specify the foreign key column
   //@JoinColumn(name="seller_fk")

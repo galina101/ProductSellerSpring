@@ -1,10 +1,13 @@
 package org.example.Entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.math.BigDecimal;
 import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -24,6 +27,7 @@ import lombok.ToString;
 @Data
 @EqualsAndHashCode
 @ToString
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "products"})
 public class Product {
 
   @Id
@@ -31,7 +35,7 @@ public class Product {
   public long id;
   public String name;
   public BigDecimal price;
-  //public Integer sellerId;
+
   //The `@JsonIgnore` annotation in the provided code is used to prevent
   // the specified property (in this case, `artist`) from being included
   // in the JSON serialization of an object of the `Painting` class.
@@ -43,14 +47,15 @@ public class Product {
   // in entities, or for excluding sensitive or unnecessary data from the output.
   @JsonIgnore
 
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   //Need to add
   @JoinColumn(name="seller_id")
+  @JsonManagedReference
 
   //In this case, it helps to avoid a potential infinite loop during serialization
   // where a Painting references an Artist, which in turn references
   // a list of Painting objects, and so on.
-  @JsonIgnoreProperties("products")
+
   public Seller seller;
 
 //Initial shape of Product class
