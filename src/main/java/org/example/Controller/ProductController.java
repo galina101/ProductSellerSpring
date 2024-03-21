@@ -68,7 +68,7 @@ public class ProductController {
       productService.deleteProductById(id);
       return new ResponseEntity<>(null, HttpStatus.OK);
     } catch (ProductNotFoundException e) {
-      return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+      return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
     }
   }
 

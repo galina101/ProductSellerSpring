@@ -75,12 +75,13 @@ public class ProductService {
   public void deleteProductById(long id) throws ProductNotFoundException {
     Optional<Product> p = productRepository.findById(id);
     if (p.isEmpty()) {
-      throw new ProductNotFoundException("no such product... ");
+      throw new ProductNotFoundException("No such product... ");
     } else {
       productRepository.deleteById(id);
     }
   }
 
+  //UNFINISHED
   public Product updateProductById(long id, Product p)
       throws ProductNotFoundException {
 
@@ -112,7 +113,7 @@ public class ProductService {
     //Check if product exists
     Optional<Product> product = productRepository.findById(id);
     if (product.isEmpty()) {
-      throw new ProductNotFoundException("no such product... ");
+      throw new ProductNotFoundException("No such product... ");
     } else {
       p.setId(id);
       productRepository.save(p);

@@ -2,6 +2,7 @@ package org.example.Controller;
 
 import java.util.List;
 import org.example.Entity.Seller;
+import org.example.Exceptions.SellerFormatException;
 import org.example.Service.SellerService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +27,8 @@ public class SellerController {
   }
 
   @PostMapping("/seller")
-  public ResponseEntity<Seller> addSeller(@RequestBody Seller s){
+  public ResponseEntity<Seller> addSeller(@RequestBody Seller s)
+      throws SellerFormatException {
     Seller seller = sellerService.saveSeller(s);
     return new ResponseEntity<>(seller, HttpStatus.CREATED);
   }

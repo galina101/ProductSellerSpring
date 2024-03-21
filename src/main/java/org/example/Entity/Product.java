@@ -44,6 +44,9 @@ public class Product {
   @JsonIgnore
 
   @ManyToOne
+  //Need to add
+  @JoinColumn(name="seller_id")
+
   //In this case, it helps to avoid a potential infinite loop during serialization
   // where a Painting references an Artist, which in turn references
   // a list of Painting objects, and so on.
